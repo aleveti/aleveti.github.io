@@ -1,10 +1,21 @@
+/* Autores: Brayan Fernando Cruz Puerta - cruz.brayan@correounivalle.edu.co - 202041217
+Juan David Garces Leon - juan.garces.leon@correounivalle.edu.co - 202043292*
+Juan Pablo Lenis Rebollesdo - juan.rebolledo@correounivalle.edu.co - 202026107*
+Maykin Rendon Montenegro - maykin.rendon@correounivalle.edu.co - 2025557*
+*/
+
 // Vamos a usar http://processingjs.org/
 // o https://p5js.org/reference/
 
 // Importamos las librerias.
 let { append, cons, first, isEmpty, isList, length, rest, map, forEach } = functionalLight;
 
-// Actualiza los atributos del objeto y retorna una copia profunda.
+/**
+ * Desarrollar una función que recibe dos objetos y agrega o modifica el objeto 1 con lo que tenga objeto 2.
+ * @param {object, object}
+ * @returns {object}
+*/
+
 function update(data, attribute){
 	return Object.assign({}, data, attribute);
 }
@@ -16,8 +27,14 @@ let Mundo = {}
 let sonidoDeComer;
 
 /**
- * Actualiza la serpiente. Creando una nuevo cabeza y removiendo la cola.
+ * Actualiza la serpiente. Creando una nueva cabeza y removiendo la cola.
+ * @param {array, object}
+ * @returns {array}
+ * @example moveSnake([{x:6, y:4}, {x:5, y:4}, {x:4, y:4}], {dir: {x: 1, y: 0}}) => [{x:7, y:4}, {x:6, y:4}, {x:5, y:4}]
+ * @example moveSnake([{x:6, y:8}, {x:6, y:7}, {x:6, y:6}], {dir: {x: 0, y: 1}}) => [{x:6, y:9}, {x:6, y:8}, {x:6, y:7}]
+ * @example moveSnake([{x:6, y:4}, {x:5, y:4}, {x:4, y:4}], {dir: {x: 0, y: 1}}) => [{x:6, y:5}, {x:6, y:4}, {x:5, y:4}]
  */
+
 function moveSnake(snake, dir){
 	const head = first(snake);
 	return cons({ x: head.x + dir.x, y: head.y + dir.y }, snake.slice(0, length(snake) - 1));
@@ -30,38 +47,59 @@ const mapa = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
               [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
               [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
               [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+			        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+			        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+			        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+			        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+			        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+			        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+			        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+			        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+			        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+			        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+			        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+			        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+			        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+			        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+			        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
               [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]];
 
-// Retorna un entero aleatorio entre min (incluido) y max (excluido).
+
+/**
+ * Retorna un entero aleatorio entre min (incluido) y max (excluido).
+ * @param {number, number}
+ * @returns {number}
+ * @example getRandomInt(4,10) => 6
+ * @example getRandomInt(0,2) => 1
+ * @example getRandomInt(4,10) => 9
+ */
+
 function getRandomInt(min, max){
 	return Math.floor(Math.random() * (max - min)) + min;
 }
 
-//retorna 5 o 20 de manera aleatoria
+/**
+ * Retorna 5 o 20 de manera aleatoria.
+ * @param {}
+ * @returns {number}
+ * @example velocidadFruta() => 5
+ * @example velocidadFruta() => 15
+ * @example velocidadFruta() => 5
+ */
+
 function velocidadFruta(){
   if(getRandomInt(0,2)==0){
     return 5;
   }
   return 15;
 }
+
 /**
  * Esto se llama antes de iniciar el juego.
+ * @param {}
+ * @returns {object}
  */
+
 function setup() {
 	frameRate(5);
 	createCanvas(400, 400);
@@ -77,7 +115,12 @@ function setup() {
 			  food3: { x: 22, y: 22 }, score: 0, multiplicador: 0, contadorfood2: 0};
 }
 
-// Dibuja la serpiente.
+/**
+ * Desarrollar una función que dibuje la serpiente.
+ * @param {array}
+ * @returns {array}
+ */
+
 function drawSnake(snake){
 	fill(201, 216, 46);
 	forEach(snake, s =>	{ 
@@ -85,22 +128,43 @@ function drawSnake(snake){
 	});
 }
 
-// Dibuja la comida.
+/**
+ * Desarrollar una función que dibuje la comida principal del juego.
+ * @param {arrray}
+ * @returns {array}
+ */
+
 function drawFood(food){
 	image(pic[2], food.x * dx, food.y * dy, dx, dy);
 }
 
-// Dibuja la comida del poder que multiplica el puntaje
+/**
+ * Desarrollar una función que dibuje la comida que da el poder de multiplicar el puntaje en el juego.
+ * @param {arrray}
+ * @returns {array}
+ */
+
 function drawFood2(food2){	
 	image(pic[1], food2.x * dx, food2.y * dy, dx, dy);	
 }
 
-// Dibuja la comida de acelerar o relantizar el movimiento de la snake
+
+/**
+ * Desarrollar una función que dibuje la comida que da el poder de acelerar o relentizar el movimiento de la serpiente.
+ * @param {arrray}
+ * @returns {array}
+ */
+
 function drawFood3(food3){	
 	image(pic[0], food3.x * dx, food3.y * dy, dx, dy);	
 }
 
-// Dibuja toda el mundo en base al mapa.
+/**
+ * Desarrollar una función "drawWorld" que dibuja todo el mundo en base al mapa.
+ * @param {arrray}
+ * @returns {array}
+ */
+
 function drawWorld(mapa){
 	forEach(mapa, (row, i) => {
 		forEach(row, (cell, j) => {
@@ -114,13 +178,26 @@ function drawWorld(mapa){
 	});
 }
 
-// Agrega a la serpiente un pedazo de cola al comer una fruta.
+/**
+ * Función que agrega a la serpiente un pedazo de cola al comer una fruta.
+ * @param {arrray, object}
+ * @returns {array}
+ */
+
 function eatSnake(snake, dir){
 	const head = first(snake);
 	return cons({ x: head.x + dir.x, y: head.y + dir.y }, snake);
 }
 
-// Hace que la serviente se vuelva más grande cuando se come una fruta del mapa con su cabeza y elimina la fruta.
+/**
+ * Hace que la serpiente se vuelva más grande cuando se come una fruta del mapa con su cabeza y elimina la fruta.
+ * @param {array, array}
+ * @returns {bolean}
+ * @example comer({x:2, y:3}, {x:2, y:3}) => true
+ * @example comer({x:2, y:3}, {x:1, y:1}) => null
+ * @example comer({x:5, y:5}, {x:5, y:5}) => true
+ */
+
 function comer(snake, food){
 	const head = first(snake);
 		if (head.x === food.x && head.y === food.y){
@@ -128,7 +205,15 @@ function comer(snake, food){
 		}
 }
 
-// Hace que la serviente se vuelva más grande cuando se come una fruta del mapa con su cabeza y elimina la fruta de poder1.
+/**
+ * Retorna "true" si la cabeza de la serpiente esta en la misma posición de la fruta dos.
+ * @param {array, array}
+ * @returns {boolean}
+ * @example comer2({x:2, y:3}, {x:2, y:3}) => true
+ * @example comer2({x:2, y:3}, {x:1, y:1}) => null
+ * @example comer2({x:5, y:5}, {x:5, y:5}) => true
+ */
+
 function comer2(snake, food2){
 	const head = first(snake);
 		if (head.x === food2.x && head.y === food2.y){
@@ -136,7 +221,16 @@ function comer2(snake, food2){
 		}
 }
 
-// Hace que la serviente se vuelva más grande cuando se come una fruta del mapa con su cabeza y elimina la fruta de poder2.
+
+/**
+ * Retorna true si la cabeza de la serpiente esta en la misma posicion de la fruta tres.
+ * @param {array,array}
+ * @returns {boolean}
+ * @example comer3({x:2, y:3}, {x:2, y:3}) => true
+ * @example comer3({x:2, y:3}, {x:1, y:1}) => null
+ * @example comer3({x:5, y:5}, {x:5, y:5}) => true
+ */
+
 function comer3(snake, food3){
 	const head = first(snake);
 		if (head.x === food3.x && head.y === food3.y){
@@ -144,14 +238,24 @@ function comer3(snake, food3){
 		}
 }
 
-// Dibujar score.
+/**
+ * Función que dibuja el score en el juego.
+ * @param {array}
+ * @returns {array}
+ */
+
 function drawScore(score){
   fill(250, 250, 250);
   textFont('Times New Roman', 18);
   text("Puntaje: " + score, 25, 375);
 }
 
-// Dibuja algo en el canvas. Aquí se pone todo lo que quieras pintar.
+/**
+ * Función que dibuja algo en el canvas. Aquí se pone todo lo que se quiera pintar.
+ * @param {object}
+ * @returns {object}
+ */
+
 function drawGame(Mundo){
 	drawWorld(mapa);
 	image(pic[5], 10, 10, 380, 380);
@@ -163,7 +267,15 @@ function drawGame(Mundo){
   gameOver(Mundo.snake);
 }
 
-// Revisa las colisiones de la serpiente.
+/*
+ * Desarrollar una función que identifique las colisiones de la serpiente.
+ * @param {array}
+ * @returns {array}
+ * @example (gameOver(snake) == head.x == 0) => true 
+ * @example (gameOver(snake) == head.y == 19) => true
+ * @example (gameOver(snake) == head.y == 1) => false
+ */
+
 function gameOver(snake){
 	const head = first(snake);
 	if(head.x ==0 || head.y == 0 || head.y == 19 || head.x ==19){
@@ -176,7 +288,12 @@ function gameOver(snake){
   });
 }
 
-// Esto se ejecuta en cada tic del reloj. Con esto se pueden hacer animaciones.
+/**
+ * Esto se ejecuta en cada tic del reloj. Con esto se pueden hacer animaciones.
+ * @param {object}
+ * @returns {object}
+ */
+
 function onTic(Mundo){
 	if (Mundo.score >= 10){
 		window.location.replace('../html/mundo2.html');
@@ -208,16 +325,23 @@ function onTic(Mundo){
 	return update(Mundo, { snake: moveSnake(Mundo.snake, Mundo.dir) });		
 }
 
-//Implemente esta función si quiere que su programa reaccione a eventos del mouse
+/**
+ * Implementar esta función si quiere que su programa reaccione a eventos del mouse.
+ * @param {object, object}
+ * @returns {object}
+ */
+
 function onMouseEvent(Mundo, event){
 	return update(Mundo, {});
 }
 
 /**
-* Actualiza el mundo cada vez que se oprime una tecla. Retorna el nuevo stado del mundo
+ * Actualiza el mundo cada vez que se oprime una tecla. Retorna el nuevo estado del mundo. Con "switch" cambiamos la dirección de la serpiente. Noten que no movemos la serpiente. Solo la dirección.
+ * @param {object, object}
+ * @returns {object}
 */
+
 function onKeyEvent(Mundo, keyCode){
-	// Cambiamos la dirección de la serpiente. Noten que no movemos la serpiente. Solo la dirección
 	switch (keyCode){
 		case UP_ARROW:
     if(Mundo.dir.y==1){ 
