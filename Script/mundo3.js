@@ -116,7 +116,7 @@ function verificarObstaculo (num1, num2){
  */
 
 function setup() {
-	frameRate(5);
+	frameRate(10);
 	createCanvas(400, 400);
 	pic = [loadImage('https://i.imgur.com/yEYt3Qx.png'),
   loadImage('https://i.imgur.com/66vDTVv.png'),
